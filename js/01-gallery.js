@@ -15,12 +15,17 @@ const markup = galleryItems.map((el) => {
 });
 
 const gallery = document.querySelector(".gallery");
-gallery.insertAdjacentHTML("beforeend", markup.join(""));
+gallery.insertAdjacentHTML("afterbegin", markup.join(""));
 
 gallery.addEventListener("click", (e) => {
   const instance = basicLightbox.create(`
-    <img src="${e.target.dataset.sourse}" width="800" height="600">
+    <img src="${e.target.dataset.source}" width="800" height="600">
 `);
-
   instance.show();
+
+  gallery.addEventListener("keyup", (e) => {
+    if (e.code === "Escape") {
+      instance.close();
+    }
+  });
 });
